@@ -1,34 +1,40 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 
-void myDisplay() {
+void myDisplayFunc() {
   glClear(GL_COLOR_BUFFER_BIT);
   glFlush();
-  glClearColor(1.0, 1.0, 1.0, 1.0);
 
   glutSwapBuffers();
+}
+
+void myIdleFunc() {
+  glClearColor(0, 0, 0, 1.0);
+
   glutPostRedisplay();
 }
 
-void myIdle() {}
-
-void myKeyboard(unsigned char key, int x, int y) {
+void myKeyboardFunc(unsigned char key, int x, int y) {
   switch (key) {
   case 27: // ESC
     glutLeaveMainLoop();
     break;
   }
+  glutPostRedisplay();
 }
 
 int main(int argc, char **argv) {
+  if (argc < 0) {
+    return 0;
+  }
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-  glutInitWindowSize(400, 300);
-  glutCreateWindow("CS6610 homework1");
+  glutInitWindowSize(1920, 1080);
+  glutCreateWindow("CS6610 homework2");
 
-  glutDisplayFunc(myDisplay);
-  glutIdleFunc(myIdle);
-  glutKeyboardFunc(myKeyboard);
+  glutDisplayFunc(myDisplayFunc);
+  glutIdleFunc(myIdleFunc);
+  glutKeyboardFunc(myKeyboardFunc);
 
   glutMainLoop();
 
